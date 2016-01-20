@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "RenderFunctions.h"
+#include "Engine.h"
 #include "framework.h"
 #include <iostream>
 
@@ -29,6 +29,7 @@ int main()
 	}
 
 	glfwMakeContextCurrent(window);
+	glfwSetKeyCallback(window, key_callback);
 
 	//initalizing GLEW
 	glewExperimental = GLU_TRUE;
@@ -38,24 +39,30 @@ int main()
 	}
 
 	//define ViewPort
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	std::cout << (GL_VENDOR) << '\n';
+	std::cout << glGetString(GL_RENDERER) << '\n';
+	std::cout << glGetString(GL_VERSION) << '\n';
+	std::cout <<  glGetString(GL_SHADING_LANGUAGE_VERSION) << '\n';
+
+	//create Engine
+	Engine engine;
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
 		//Rendering code
-		OpenGLinit();
-		draw();
+		engine.draw();
 
 		glfwSwapBuffers(window);
 	}
-
-
+	engine.close();
 	glfwTerminate();
     return 0;
 }
 
-//checks for key input , called yo GFLW by glfwSetKeyCallback(window, key_callback)
+//checks for key input , called to GFLW by glfwSetKeyCallback(window, key_callback)
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
