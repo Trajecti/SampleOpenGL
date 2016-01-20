@@ -15,7 +15,8 @@ public:
 	void close();
 private:
 	std::unique_ptr<shaderProgram> program;
-	GLuint vao;
-	GLuint vbo;
+	std::string vertexTexLoc;
+	GLuint vao, vbo, ebo;
+	GLuint tex1, tex2;
 };
 

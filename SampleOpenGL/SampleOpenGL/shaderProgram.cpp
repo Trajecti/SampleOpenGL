@@ -92,11 +92,11 @@ void shaderProgram::removeShaders() {
 }
 
 void shaderProgram::addAttrib(std::string attrib) {
-	glGetAttribLocation(id, attrib.c_str());
+	shaderVar.insert(std::make_pair(attrib,glGetAttribLocation(id, attrib.c_str())));
 }
 
 void shaderProgram::addUniform(std::string unif){
-	glGetUniformLocation(id, unif.c_str());
+	shaderVar.insert(std::make_pair(unif, glGetUniformLocation(id, unif.c_str())));
 }
 
 void shaderProgram::linkProgram() {

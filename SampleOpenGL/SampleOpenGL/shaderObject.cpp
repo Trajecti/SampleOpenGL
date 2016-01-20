@@ -28,7 +28,6 @@ shaderObject::shaderObject(std::string Path, GLenum eShaderType){
 	}
 
 	std::string shaderFile = loadFile(Path) + '\n';
-	std::cout << shaderFile << '\n';
 	const char *strData = shaderFile.c_str();
 	glShaderSource(id, 1, &strData, NULL);
 	glCompileShader(id);

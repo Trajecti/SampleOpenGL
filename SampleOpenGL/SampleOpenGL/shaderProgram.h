@@ -9,6 +9,7 @@ class shaderProgram
 public:
 	GLuint id;
 	int shaderCount;
+	std::map<std::string, GLuint> shaderVar;
 
 	shaderProgram& operator=(shaderProgram other);
 	shaderProgram();

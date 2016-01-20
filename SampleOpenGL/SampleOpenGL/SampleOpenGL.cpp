@@ -7,7 +7,7 @@
 #include <iostream>
 
 const int SCREEN_HEIGHT = 800;
-const int SCREEN_WIDTH = 600;
+const int SCREEN_WIDTH = 800;
 
 
 
@@ -40,11 +40,6 @@ int main()
 
 	//define ViewPort
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	std::cout << (GL_VENDOR) << '\n';
-	std::cout << glGetString(GL_RENDERER) << '\n';
-	std::cout << glGetString(GL_VERSION) << '\n';
-	std::cout <<  glGetString(GL_SHADING_LANGUAGE_VERSION) << '\n';
 
 	//create Engine
 	Engine engine;
