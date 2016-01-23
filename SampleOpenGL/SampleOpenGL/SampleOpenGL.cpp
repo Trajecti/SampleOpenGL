@@ -6,8 +6,8 @@
 #include "framework.h"
 #include <iostream>
 
-const int SCREEN_HEIGHT = 800;
-const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 768;
+const int SCREEN_WIDTH =1024;
 
 
 
@@ -21,7 +21,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	//initializing window
-	GLFWwindow* window = glfwCreateWindow(SCREEN_HEIGHT, SCREEN_WIDTH, "Sample OpenGL", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sample OpenGL", nullptr, nullptr);
 	if (window == NULL) {
 		std::cout << "Failed to create GLFLW window \n";
 		glfwTerminate();
@@ -29,7 +29,7 @@ int main()
 	}
 
 	glfwMakeContextCurrent(window);
-	glfwSetKeyCallback(window, key_callback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//initalizing GLEW
 	glewExperimental = GLU_TRUE;
@@ -43,13 +43,15 @@ int main()
 
 	//create Engine
 	Engine engine;
-
+	engine.set_dim(SCREEN_WIDTH, SCREEN_HEIGHT);
+	engine.init();
+	glfwSetKeyCallback(window,InputCallBackWrapper::key_callback_dispatch);
+	glfwSetCursorPosCallback(window, InputCallBackWrapper::mouse_callback_dispatch);
 	while (!glfwWindowShouldClose(window)) {
+		engine.setEventHandling();
 		glfwPollEvents();
-
 		//Rendering code
 		engine.draw();
-
 		glfwSwapBuffers(window);
 	}
 	engine.close();
@@ -57,9 +59,3 @@ int main()
     return 0;
 }
 
-//checks for key input , called to GFLW by glfwSetKeyCallback(window, key_callback)
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	}
-}
